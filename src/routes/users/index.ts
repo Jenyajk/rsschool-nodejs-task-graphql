@@ -54,7 +54,8 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async (
         return fastify.db.users.create(request.body);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to create user');
+        reply.code(400).send({ message: 'Failed to create user' });
+        throw error;
       }
     }
   );
