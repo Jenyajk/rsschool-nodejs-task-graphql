@@ -55,11 +55,9 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async (
     },
     async function (request, reply): Promise<PostEntity> {
       try {
-        return fastify.db.posts.delete(request.params.id)
-      } catch (error) {
-        console.error(error);
-        reply.code(400).send({ message: 'Bad Request' });
-        throw error;
+        return await fastify.db.posts.delete(request.params.id);
+      } catch (error:any) {
+        throw  reply.code(400).send({ message: 'Bad Request' });
       }
     }
   );
@@ -74,11 +72,9 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async (
     },
     async function (request, reply): Promise<PostEntity> {
       try {
-        return fastify.db.posts.change(request.params.id, request.body)
-      } catch (error) {
-        console.error(error);
-        reply.code(400).send({ message: 'Bad Request' });
-        throw error;
+        return await fastify.db.posts.change(request.params.id, request.body);
+      } catch (error:any) {
+       throw reply.code(400).send({ message: error.message || 'Bad Request' });
       }
     }
   );

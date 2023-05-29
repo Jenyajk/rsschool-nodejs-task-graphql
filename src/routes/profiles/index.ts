@@ -90,18 +90,17 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async (
         throw fastify.httpErrors.badRequest();
       }
 
+      return fastify.db.profiles.change(request.params.id, request.body)
+
       try {
         if (request.params.id) {
-          const foundMemberType = await fastify.db.memberTypes.findOne({ key: 'id', equals: request.params.id });
-          if (!foundMemberType) {
-            throw new Error('MemberType does not exist');
-          }
+          const memberType = await fastify.db.memberTypes.findOne({key:'id', equals:request.params.id})
+          if(!memberType) throw new Error ('MemberType does not exist');
         }
-        const updatedProfile = await fastify.db.profiles.change(request.params.id, request.body);
-        return updatedProfile;
-      } catch (error: any) {
-        return reply.code(400).send({ message: error.message || 'Bad Request' });
-
+        return await fastify.db.profiles.change(request.params.id, request.body)
+      }
+      catch (error: any) {
+        return reply.code(400).send({message: error.message || "Bad Request"})
       }
     }
   );

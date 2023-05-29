@@ -4,7 +4,9 @@ import {ProfileEntity} from "./DB/entities/DBProfiles";
 
 
 export function checkIsValidIdentifier(identifier: string): boolean  {
-  return !isNaN(Number(identifier));
+  const regexExp =
+    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+  return regexExp.test(identifier);
 }
 
 export function areValuesMissing(
