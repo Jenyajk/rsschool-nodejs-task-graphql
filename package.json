@@ -20,7 +20,7 @@
     "dev:start": "fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jenya",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
